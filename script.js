@@ -44,10 +44,8 @@ document.addEventListener('DOMContentLoaded', () => {
     const progressLog = document.getElementById('progressLog');
     const keyContainer = document.getElementById('keyContainer');
     const keysList = document.getElementById('keysList');
-    const copyAllBtn = document.getElementById('copyAllBtn');
     const generatedKeysTitle = document.getElementById('generatedKeysTitle');
     const gameSelect = document.getElementById('gameSelect');
-    const copyStatus = document.getElementById('copyStatus');
     const sourceCode = document.getElementById('sourceCode');
     const gameSelectGroup = document.getElementById('gameSelectGroup');
     const keyCountGroup = document.getElementById('keyCountGroup');
@@ -120,15 +118,14 @@ document.addEventListener('DOMContentLoaded', () => {
             keysList.innerHTML = keys.filter(key => key).map(key =>
                 `<div class="key-item">
                     <input type="text" value="${key}" readonly>
-                    <button class="copyKeyBtn" data-key="${key}">Copy Key</button>
+                    <button class="copyKeyBtn" data-key="${key}">Copy</button>
                 </div>`
             ).join('');
-            copyAllBtn.classList.remove('hidden');
         } else if (keys.length === 1) {
             keysList.innerHTML =
                 `<div class="key-item">
                     <input type="text" value="${keys[0]}" readonly>
-                    <button class="copyKeyBtn" data-key="${keys[0]}">Copy Key</button>
+                    <button class="copyKeyBtn" data-key="${keys[0]}">Copy</button>
                 </div>`;
         }
 
@@ -161,10 +158,6 @@ document.addEventListener('DOMContentLoaded', () => {
                         const successful = document.execCommand('copy');
                         const msg = successful ? 'successful' : 'unsuccessful';
                         console.log('Fallback: Copying text command was ' + msg);
-                        if (successful) {
-                            copyStatus.classList.remove('hidden');
-                            setTimeout(() => copyStatus.classList.add('hidden'), 2000);
-                        }
                     } catch (err) {
                         console.error('Fallback: Oops, unable to copy', err);
                     }
@@ -173,12 +166,14 @@ document.addEventListener('DOMContentLoaded', () => {
                 }
             });
         });
+
+        document.getElementById('generateMoreBtn').addEventListener('click', () => {
+            window.location.href = 'https://zohlathu.github.io/bdbdkakabdbsjs/';
+        });
         copyAllBtn.addEventListener('click', () => {
             const keysText = keys.filter(key => key).join('\n');
             if (navigator.clipboard && navigator.clipboard.writeText) {
                 navigator.clipboard.writeText(keysText).then(() => {
-                    copyStatus.classList.remove('hidden');
-                    setTimeout(() => copyStatus.classList.add('hidden'), 2000);
                 }).catch(err => {
                     console.error('Failed to copy text: ', err);
                 });
@@ -196,9 +191,6 @@ document.addEventListener('DOMContentLoaded', () => {
                     const successful = document.execCommand('copy');
                     const msg = successful ? 'successful' : 'unsuccessful';
                     console.log('Fallback: Copying text command was ' + msg);
-                    if (successful) {
-                        copyStatus.classList.remove('hidden');
-                        setTimeout(() => copyStatus.classList.add('hidden'), 2000);
                     }
                 } catch (err) {
                     console.error('Fallback: Oops, unable to copy', err);
