@@ -28,9 +28,9 @@ document.addEventListener('DOMContentLoaded', () => {
             promoId: 'dc128d28-c45b-411c-98ff-ac7726fbaea4'
         },
         6: {
-        name: 'Twerk Race 3D',
-        appToken: '61308365-9d16-4040-8bb0-2f4a4c69074c',
-        promoId: '61308365-9d16-4040-8bb0-2f4a4c69074c'
+            name: 'Twerk Race 3D',
+            appToken: '61308365-9d16-4040-8bb0-2f4a4c69074c',
+            promoId: '61308365-9d16-4040-8bb0-2f4a4c69074c'
     }
         
     };
@@ -65,7 +65,7 @@ document.addEventListener('DOMContentLoaded', () => {
 
         progressBar.style.width = '0%';
         progressText.innerText = '0%';
-        progressLog.innerText = 'Starting...';
+        progressLog.innerText = 'Generate mek a ni, lo nghak lawk rawh...';
         progressContainer.classList.remove('hidden');
         keyContainer.classList.add('hidden');
         generatedKeysTitle.classList.add('hidden');
@@ -98,7 +98,7 @@ document.addEventListener('DOMContentLoaded', () => {
             for (let i = 0; i < 11; i++) {
                 await sleep(EVENTS_DELAY * delayRandom());
                 const hasCode = await emulateProgress(clientToken, game.promoId);
-                updateProgress(7 / keyCount, 'Emulating progress...');
+                updateProgress(7 / keyCount, 'Generate mek a ni, lo nghak lawk rawh...');
                 if (hasCode) {
                     break;
                 }
@@ -106,7 +106,7 @@ document.addEventListener('DOMContentLoaded', () => {
 
             try {
                 const key = await generateKey(clientToken, game.promoId);
-                updateProgress(30 / keyCount, 'Generating key...');
+                updateProgress(30 / keyCount, 'Generate mek a ni, lo nghak lawk rawh...');
                 return key;
             } catch (error) {
                 alert(`Failed to generate key: ${error.message}`);
@@ -218,25 +218,7 @@ document.addEventListener('DOMContentLoaded', () => {
         startBtn.disabled = false;
     });
 
-    document.getElementById('generateMoreBtn').addEventListener('click', () => {
-        progressContainer.classList.add('hidden');
-        keyContainer.classList.add('hidden');
-        startBtn.classList.remove('hidden');
-        keyCountSelect.classList.remove('hidden');
-        gameSelect.classList.remove('hidden');
-        generatedKeysTitle.classList.add('hidden');
-        copyAllBtn.classList.add('hidden');
-        keysList.innerHTML = '';
-        keyCountLabel.innerText = 'Number of keys:';
-        
-        // Show the form sections again
-        gameSelectGroup.style.display = 'block';
-        keyCountGroup.style.display = 'block';
-    });
-
-    sourceCode.addEventListener('click', () => {
-        window.open('https://github.com/ShafiqSadat/HamsterKeyGenWeb', '_blank');
-    });
+    
 
     const generateClientId = () => {
         const timestamp = Date.now();
